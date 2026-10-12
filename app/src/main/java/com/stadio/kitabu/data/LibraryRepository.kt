@@ -19,6 +19,14 @@ class LibraryRepository(private val dao: LibraryDao) {
         }
     }
 
+    fun getCategories(): Flow<List<String>> = dao.getAllCategories()
+
+    fun getFilteredBooks(query: String, category: String?, availableOnly: Boolean): Flow<List<BookEntity>> {
+        val cleaned = LoanRules.cleanSearchQuery(query)
+        val selectedCategory = if (category.isNullOrBlank() || category == "All") null else category
+        return dao.searchAndFilterBooks(cleaned, selectedCategory, availableOnly)
+    }
+
     fun getActiveBookings(): Flow<List<BookingWithBook>> = dao.getActiveBookingsWithBook()
 
     suspend fun reserveBook(bookId: Long, userName: String, rentalDays: Int): ActionResult {

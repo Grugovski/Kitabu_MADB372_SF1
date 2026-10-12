@@ -32,6 +32,19 @@ interface LibraryDao {
     @Query("SELECT * FROM books WHERE isAvailable = 1 ORDER BY bookId ASC")
     fun getAvailableBooks(): Flow<List<BookEntity>>
 
+    @Query("SELECT DISTINCT category FROM books ORDER BY category ASC")
+    fun getAllCategories(): Flow<List<String>>
+
+    // LIKE search on title or author, optionally filtered by category and availability
+    @Query(
+        "SELECT * FROM books " +
+            "WHERE (title LIKE '%' || :query || '%' OR author LIKE '%' || :query || '%') " +
+            "AND (:category IS NULL OR category = :category) " +
+            "AND (:availableOnly = 0 OR isAvailable = 1) " +
+            "ORDER BY bookId ASC"
+    )
+    fun searchAndFilterBooks(query: String, category: String?, availableOnly: Boolean): Flow<List<BookEntity>>
+
     // LIKE search on title or author, optionally only the available books
     @Query(
         "SELECT * FROM books " +
