@@ -17,6 +17,20 @@ How the app works
 3. Reservations tab – a pending booking can be collected (`ACTIVE`) or cancelled (row deleted, book available again).
 4. An active booking can be renewed (+7 days, max 42 days in total) or returned (`RETURNED`, book available again).
 
+Feature Branches
+The repository development is structured across 3 main feature branches:
+1. `feature/database`: Room database entities, indexing, DAO queries, type converters, pre-populated callback, and migration setup.
+2. `feature/ui-design`: Jetpack Compose Material 3 UI layouts, category filter chips, custom cards, dark theme, and animated transitions.
+3. `feature/book-logic`: `LibraryViewModel`, StateFlow query combination, domain loan rules, repository input validation, and unit test suite.
+
+Unit Tests
+Run unit tests via Gradle:
+```bash
+./gradlew test
+```
+- `LoanRulesTest`: Tests for loan duration limits, name cleaning, and deadline validation.
+- `LibraryViewModelTest`: Tests for UI state management and flow updates.
+
 Project structure
 com.stadio.kitabu
 ├── KitabuApplication.kt      creates the AppContainer
