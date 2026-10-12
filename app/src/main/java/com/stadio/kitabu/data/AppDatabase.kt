@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
- * Room database (singleton). Sample books are inserted the first time it is created.
+ * Room database (singleton). Provides automated migration fallback and callback population.
  */
 @Database(
     entities = [BookEntity::class, BookingEntity::class],
