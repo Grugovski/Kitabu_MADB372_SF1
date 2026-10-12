@@ -1,5 +1,6 @@
 package com.stadio.kitabu.ui.components
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -61,6 +62,7 @@ fun ReservationCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .animateContentSize()
             .padding(vertical = 6.dp, horizontal = 12.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
