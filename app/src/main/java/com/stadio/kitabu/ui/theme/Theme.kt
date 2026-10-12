@@ -1,10 +1,12 @@
 package com.stadio.kitabu.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val KitabuColorScheme = lightColorScheme(
+private val KitabuLightColorScheme = lightColorScheme(
     primary = GreenPrimary,
     onPrimary = GreenOnPrimary,
     primaryContainer = GreenPrimaryContainer,
@@ -24,13 +26,25 @@ private val KitabuColorScheme = lightColorScheme(
     surfaceContainerLow = LeafSurface
 )
 
+private val KitabuDarkColorScheme = darkColorScheme(
+    primary = GreenPrimaryContainer,
+    onPrimary = GreenPrimary,
+    secondary = SageSecondaryContainer,
+    background = LeafOnSurface,
+    surface = LeafOnSurfaceVariant
+)
+
 /**
- * App theme: green colour scheme + serif/sans-serif typography.
+ * App theme: green colour scheme with light/dark theme support + typography.
  */
 @Composable
-fun KitabuTheme(content: @Composable () -> Unit) {
+fun KitabuTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colorScheme = if (darkTheme) KitabuDarkColorScheme else KitabuLightColorScheme
     MaterialTheme(
-        colorScheme = KitabuColorScheme,
+        colorScheme = colorScheme,
         typography = KitabuTypography,
         content = content
     )
