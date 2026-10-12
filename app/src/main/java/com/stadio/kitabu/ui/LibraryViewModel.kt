@@ -34,16 +34,26 @@ class LibraryViewModel(private val repository: LibraryRepository) : ViewModel() 
     private val _availableOnly = MutableStateFlow(false)
     val availableOnly: StateFlow<Boolean> = _availableOnly.asStateFlow()
 
+    private val _selectedCategory = MutableStateFlow<String?>(null)
+    val selectedCategory: StateFlow<String?> = _selectedCategory.asStateFlow()
+
+    val categories: StateFlow<List<String>> = repository.getCategories()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
     // One-off message for the snackbar (success or error)
     private val _userMessage = MutableStateFlow<String?>(null)
     val userMessage: StateFlow<String?> = _userMessage.asStateFlow()
 
-    // Re-queries Room every time the search text or the filter changes
-    val books: StateFlow<List<BookEntity>> = combine(_searchQuery, _availableOnly) { query, onlyAvailable ->
-        query to onlyAvailable
+    // Re-queries Room every time the search text, category filter, or availability changes
+    val books: StateFlow<List<BookEntity>> = combine(_searchQuery, _selectedCategory, _availableOnly) { query, category, onlyAvailable ->
+        Triple(query, category, onlyAvailable)
     }
-        .flatMapLatest { (query, onlyAvailable) ->
-            repository.getBooks(query, onlyAvailable)
+        .flatMapLatest { (query, category, onlyAvailable) ->
+            repository.getFilteredBooks(query, category, onlyAvailable)
         }
         .stateIn(
             scope = viewModelScope,
@@ -64,6 +74,10 @@ class LibraryViewModel(private val repository: LibraryRepository) : ViewModel() 
 
     fun onAvailableOnlyChange(value: Boolean) {
         _availableOnly.value = value
+    }
+
+    fun onCategorySelected(category: String?) {
+        _selectedCategory.value = category
     }
 
     fun messageShown() {
