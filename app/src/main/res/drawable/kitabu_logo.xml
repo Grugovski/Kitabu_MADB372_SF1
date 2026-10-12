@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kitabu logo: an open book with a bookmark on a light green circle -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#B7F0C8"
+        android:pathData="M24,2a22,22 0,1 1,0 44a22,22 0,1 1,0 -44z" />
+    <path
+        android:fillColor="#1F6B3A"
+        android:pathData="M24,17C20,14 14,13 10,14L10,34C14,33 20,34 24,37Z" />
+    <path
+        android:fillColor="#2E8B57"
+        android:pathData="M24,17C28,14 34,13 38,14L38,34C34,33 28,34 24,37Z" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:pathData="M13,19C16,18.5 19,19 21,20.5M13,23C16,22.5 19,23 21,24.5M13,27C16,26.5 19,27 21,28.5" />
+    <path
+        android:fillColor="#F9A825"
+        android:pathData="M30,13.5L30,24L32.5,22L35,24L35,14Z" />
+</vector>
